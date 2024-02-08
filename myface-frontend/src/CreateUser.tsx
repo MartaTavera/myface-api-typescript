@@ -27,17 +27,21 @@ export default function CreateUser() {
 
     const validateInput = (user: any) => {
         let error: string = '';
-
+        const emailRegex =  /((@[a-z\d-]+)\.([a-z\d-]){2,}(\.[a-z]{2,})?)+$/gi;
         if (user.username.length < 2) {
             error = "The username is too short";
             setErrors(error);
             setIsValidated(false);
         }
-        if (user.email === '') {
+        if (user.email === '' ) {
             error = "enter an email address";
             setErrors(error);
             setIsValidated(false);
         }
+        if(!user.email.match(emailRegex))
+            error= "Please enter a valid email address"
+            setErrors(error);
+            setIsValidated(false);
     }
 
 

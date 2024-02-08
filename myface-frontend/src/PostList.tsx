@@ -4,7 +4,7 @@ import './style/App.scss'
 import {Page} from '../../src/models/api/page'
 import {PostModel} from '../../src/models/api/postModel'
 
-import { FormEventHandler, ChangeEventHandler } from "react";
+
 
 
   export default function PostList(){
