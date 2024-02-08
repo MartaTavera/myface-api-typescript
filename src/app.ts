@@ -15,7 +15,7 @@ app.use('/posts', postRoutes);
 app.use('/users', userRoutes);
 
 app.get('', (request, response) => {
-    return response.status(200)
+    return response.status(200).end();
 });
 
 app.listen(port, () => {

@@ -37,7 +37,6 @@ export async function getPost(postId: number): Promise<Post> {
     const posts = await database<Post>('posts')
         .select('*')
         .where('id', postId);
-
     return single(posts);
 }
 
