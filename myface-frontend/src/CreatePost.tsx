@@ -9,7 +9,6 @@ function ErrorDiv(props: any) {
     }
 }
 
-
 export default function CreatePost() {
     const [post, setPost] = useState<CreatePostRequest>({
         message: '',
@@ -18,11 +17,10 @@ export default function CreatePost() {
 
     const [isValidated, setIsValidated] = useState<boolean>(true);
     const [errors, setErrors] = useState<string>();
-    
+
     const validateInput = (post: any) => {
         let error: string = '';
-        const urlRegex =  "((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
-        // /((@[a-z\d-]+)\.([a-z\d-]){2,}(\.[a-z]{2,})?)+$/gi
+        const urlRegex = "((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
         if (!post.imageUrl.match(urlRegex)) {
             error = "Please enter a valid URL";
             setErrors(error);
@@ -33,9 +31,8 @@ export default function CreatePost() {
             setErrors(error);
             setIsValidated(false);
         }
-    
-    }
 
+    }
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
         const { name, value } = event.target;
@@ -47,22 +44,28 @@ export default function CreatePost() {
         console.log(post);
         validateInput(post);
     }
-    return(
-        <div>
+    return (
+        <div className="flexcContainer">
             <h1>Create Post</h1>
 
             <ErrorDiv errors={errors} isValidated={isValidated} />
             <form onSubmit={handleSubmit}>
-                <label>
-                    Message:
-                    
-                    <input type="text" name="message" value={post.message} onChange={handleChange}/>
-                </label>
-                <label>
-                    ImageUrl:
-                    <input type="text" name="imageUrl" value={post.imageUrl} onChange={handleChange}/>
-                </label>
+                <div className='formContainer'>
+                    <label>
+
+                        Message:
+                        <br />
+                        <input type="text" name="message" value={post.message} onChange={handleChange} />
+
+                    </label>
+                    <label>
+                        ImageUrl:
+                        <br />
+                        <input type="text" name="imageUrl" value={post.imageUrl} onChange={handleChange} />
+                    </label>
+                </div>
                 <button type="submit">Submit</button>
+
             </form>
         </div>
     )

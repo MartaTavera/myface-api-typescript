@@ -1,5 +1,5 @@
-import { CreateUserRequest } from '../../src/models/api/createUserRequest'
 import { useState, FormEventHandler, ChangeEventHandler } from "react";
+import { CreateUserRequest } from "./models/api/createUserRequest";
 
 
 function ErrorDiv(props: any) {
@@ -9,9 +9,7 @@ function ErrorDiv(props: any) {
         )
     }
 }
-
-
-export default function CreateUser() {
+export const CreateUser: React.FC = () => {
     const [user, setUser] = useState<CreateUserRequest>({
         name: '',
         username: '',
@@ -19,31 +17,36 @@ export default function CreateUser() {
         profileImageUrl: '',
         coverImageUrl: '',
     })
-
-
+    
     const [isValidated, setIsValidated] = useState<boolean>(true);
-    const [errors, setErrors] = useState<string>();
-
-
+    const [errors, setErrors] = useState<string>('');
     const validateInput = (user: any) => {
         let error: string = '';
-        const emailRegex =  /((@[a-z\d-]+)\.([a-z\d-]){2,}(\.[a-z]{2,})?)+$/gi;
+        const emailRegex = /((@[a-z\d-]+)\.([a-z\d-]){2,}(\.[a-z]{2,})?)+$/gi;
+        const urlRegex = "((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
+
         if (user.username.length < 2) {
             error = "The username is too short";
             setErrors(error);
             setIsValidated(false);
         }
-        if (user.email === '' ) {
+        if (user.email === '') {
             error = "enter an email address";
             setErrors(error);
             setIsValidated(false);
         }
-        if(!user.email.match(emailRegex))
-            error= "Please enter a valid email address"
+        if (!user.email.match(emailRegex)) {
+            error = "Please enter a valid email address"
             setErrors(error);
             setIsValidated(false);
-    }
 
+        }
+        if (!user.profileImageUrl.match(urlRegex) || !user.coverImageUrl.match(urlRegex)) {
+            error = "Please enter a valid URL;"
+            setErrors(error);
+            setIsValidated(false)
+        }
+    }
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
         const { name, value } = event.target;
@@ -88,28 +91,34 @@ export default function CreateUser() {
                         Name:
                         <br />
                         <input type="text" name="name" value={user.name} onChange={handleChange} />
+                        <br />
                     </label>
                     <label>
                         Username:
                         <br />
                         <input type="text" name="username" value={user.username} onChange={handleChange} />
+                        <br />
                     </label>
                     <label>
                         Email:
                         <br />
                         <input type="text" name="email" value={user.email} onChange={handleChange} />
+                        <br />
                     </label>
                     <label>
                         ProfileImageUrl:
                         <br />
                         <input type="text" name="profileImageUrl" value={user.profileImageUrl} onChange={handleChange} />
+                        <br />
                     </label>
                     <label>
                         CoverImageUrl:
                         <br />
                         <input type="text" name="coverImageUrl" value={user.coverImageUrl} onChange={handleChange} />
+                        <br />
                     </label>
                 </div>
+                <br />
                 <button type="submit">Submit</button>
             </form>
         </div>

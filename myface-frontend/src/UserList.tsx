@@ -13,7 +13,6 @@ function UserList() {
         if (!myData) {
             return <div>Waiting</div>
         }
-
         return (
             <div>
                 <h1>Users</h1>

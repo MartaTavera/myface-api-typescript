@@ -3,7 +3,7 @@ import './style/App.scss'
 import PostList from './PostList';
 import UserDetail from './UserDetail';
 import UserList from './UserList';
-import CreateUser from './CreateUser';
+import { CreateUser } from './CreateUser';
 import CreatePost from './CreatePost';
 
 export default function App() {
